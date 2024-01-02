@@ -14,4 +14,11 @@ WHERE address_street_name = 'Northwestern Dr'
 ORDER BY address_number DESC LIMIT 1
 
 SELECT id FROM person 
-WHERE INSTR(name,'Annabel') > 0
+WHERE INSTR(name,'Annabel') > 0 AND address_street_name = 'Franklin Ave'
+
+SELECT *, 1 AS witness FROM witness1
+UNION
+SELECT *, 2 ASwitness FROM witness2
+
+SELECT witness, transcript FROM witnesses
+LEFT JOIN interview ON witnesses.id = interview.person_id
