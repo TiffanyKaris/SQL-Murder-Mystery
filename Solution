@@ -22,3 +22,38 @@ SELECT *, 2 ASwitness FROM witness2
 
 SELECT witness, transcript FROM witnesses
 LEFT JOIN interview ON witnesses.id = interview.person_id
+
+Witness 1
+I heard a gunshot and then saw a man run out.He had a 'GET FIT NOW GYM' bag.The membership number on the bag started with "48Z". Only gold members have those bags.
+The man got into a car with a plate icluded 'H42W'.
+
+Witness 2
+I saw the murder happen,and i recognized the killer from my gym when I was working out last week on January the 9th.
+
+Suspects 
+Cross-referencing the gym memberships, gym check-ins and drivers license:
+
+With gym_checkins AS (
+SELECT person_id,name
+FROM  get_fit_now member 
+LEFT JOIN get_fit_now_check_in ON get_fit_now_member .id
+WHERE membership_status = 'gold'
+/* Only gold members have those bags*/
+AND id REGEXP '^48Z'
+/*membership number on the bag started with "48Z"*/
+AND check_in_date = '20180109'
+/*witness 2 recognized him on January the 9th*/
+), suspects AS (
+SELECT gym_checkins.person_id, gym_checkins.name, plate_number, gender
+FROM gym_checkins
+LEFT JOIN person ON gym_checkins.person_id = person.id
+LEFT JOIN drivers_license ON person.license_id = drivers_license.id
+)
+SELECT * FROM suspects
+/*The man got into a car with  a plate that included "H42W"*/
+WHERE INSTR(plate_number, 'H42W') > 0 AND gender = 'male'
+INSERT INTO solution Values (1,"Jer
+SELECT value FROM solution;
+
+
+
