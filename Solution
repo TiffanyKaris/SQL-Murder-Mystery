@@ -55,5 +55,33 @@ WHERE INSTR(plate_number, 'H42W') > 0 AND gender = 'male'
 INSERT INTO solution Values (1,"Jer
 SELECT value FROM solution;
 
+/*FURTHER INVESTIGATION*/
+SELECT id AS license_id 
+FROM drivers_license
+WHERE gender = 'female' AND hair_color = 'red'
+/*She has red hair*/
+AND car_make = 'Tesla' AND car_model = 'Model S'
+/* and she drives a Tesla Model S'*/
+AND height >= 64 AND height <= 68 
+/* She is around 5'5"(65") or 5'7 (67") */
+), symphony_attenders AS (
+SELECT person-id, COUNT (1) AS n_checkins
+FROM facebook_event_checkin
+WHERE event_name ='SQL Symphony Concert'
+/*she attended the SQL symphony Concert*?
+AND 'date' REGEXP '^201712'
+/*In December 2017*/
+GROUP BY person_id
+HAVING n_chechins = 3 
+/* 3 times*/
+)
+SELECT name,annual_income
+FROM rich_suspects
+INNER JOIN symphony_attenders ON rich _suspects.person_id = symphony_attenders.person_id
+
+INSERT INTO solution VALUES (1, "Miranda Priestly");
+SELECT value FROM solution;
+
+
 
 
